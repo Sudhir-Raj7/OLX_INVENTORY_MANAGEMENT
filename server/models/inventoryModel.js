@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const InventorySchema = new Schema({
-    sku: { type: String, required: true },
+    sku: { type: String, required: true , unique: true},
     type: { type: String, required: true },
     status: { type: String, required: true },
     location: { type: String, required: true },
@@ -13,7 +13,7 @@ const InventorySchema = new Schema({
     },
     pricing: {
         cost: { type: Number, required: true },
-        sellingPrice: { type: Number },
+        sellingPrice: { type: Number, required: true },
     },
     metadata: {
         createdAt: { type: Date, default: Date.now },
