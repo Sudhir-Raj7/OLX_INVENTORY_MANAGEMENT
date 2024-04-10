@@ -15,7 +15,6 @@ import InventoryModel from "../models/inventoryModel.js";
 class InventoryController {
     static createInventory = async (req, res) => {
         try {
-            // Create an object of InventoryData class to encapsulate request body attributes
             const inventoryData = new InventoryData(req.body);
 
             if (!inventoryData.sku || !inventoryData.type || !inventoryData.status || !inventoryData.location || !inventoryData.attributes || !inventoryData.pricing || !inventoryData.metadata) {
