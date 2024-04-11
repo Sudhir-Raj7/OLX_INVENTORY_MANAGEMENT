@@ -35,6 +35,18 @@ class InventoryController {
             return res.status(500).json({ message: "Internal server error" });
         }
     };
+
+    static getInventory = async (req,res)=>{
+        try {
+            const inventory = await InventoryModel.find();
+            res.status(200).json(inventory);
+            
+        } catch (error) {
+            res.status(404).json({message:error.message});
+            
+        }
+
+    };
 }
 
 export default InventoryController;
