@@ -36,17 +36,33 @@ class InventoryController {
         }
     };
 
-    static getInventory = async (req,res)=>{
+    static getInventory = async (req, res) => {
         try {
             const inventory = await InventoryModel.find();
             res.status(200).json(inventory);
-            
+
         } catch (error) {
-            res.status(404).json({message:error.message});
-            
+            res.status(404).json({ message: error.message });
+
         }
 
     };
+    static getInventoryById = async (req, res) => {
+        const { id } = req.params;
+
+        try {
+            if (id) {
+                const inventory = await InventoryModel.findById(id);
+                return res.status(200).json(inventory);
+            }
+            else {
+                return res.status(400).json({ message: "Invalid URL" });
+            }
+        } catch (error) {
+            return res.status(404).json({ message: error.message });
+        }
+
+    }
 }
 
 export default InventoryController;

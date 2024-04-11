@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post("/inventories",InventoryController.createInventory);
 router.get("/inventories",InventoryController.getInventory);
-// router.get("/inventories/:id",InventoryController.getInventoryById);
+router.get("/inventories/:id",InventoryController.getInventoryById);
 
 
 
