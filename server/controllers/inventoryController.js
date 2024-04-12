@@ -37,16 +37,36 @@ class InventoryController {
     };
 
     static getInventory = async (req, res) => {
-        try {
-            const inventory = await InventoryModel.find();
-            res.status(200).json(inventory);
+        const page = parseInt(req.query.page) || 1;
+        const perPage = 10;
 
+        try {
+            const totalItems = await InventoryModel.countDocuments();
+            const totalPages = Math.ceil(totalItems / perPage);
+
+            // If requested page exceeds total pages, return an empty array
+            if (page > totalPages) {
+                return res.status(200).json({
+                    currentPage: page,
+                    totalPages: totalPages,
+                    inventory: []
+                });
+            }
+
+            const inventory = await InventoryModel.find()
+                .skip((page - 1) * perPage)
+                .limit(perPage);
+
+            res.status(200).json({
+                currentPage: page,
+                totalPages: totalPages,
+                inventory: inventory
+            });
         } catch (error) {
             res.status(404).json({ message: error.message });
-
         }
-
     };
+
     static getInventoryById = async (req, res) => {
         const { id } = req.params;
 
